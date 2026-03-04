@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monopoly Oyununa Katıl</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #F0F0F0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        }
+
+        .card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px 32px;
+            text-align: center;
+            max-width: 360px;
+            width: 90%;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+        }
+
+        .logo {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        h1 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111;
+            margin-bottom: 8px;
+        }
+
+        p {
+            color: #555;
+            font-size: 15px;
+            margin-bottom: 28px;
+            line-height: 1.5;
+        }
+
+        .btn {
+            display: inline-block;
+            background: #0066FF;
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 14px 32px;
+            border-radius: 12px;
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .btn:active { opacity: 0.85; }
+
+        .hint {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        #status { margin-top: 16px; font-size: 14px; color: #333; }
+    </style>
+</head>
+<body>
+<div class="card">
+    <div class="logo">🎩</div>
+    <h1>Monopoly Oyununa Katıl</h1>
+    <p id="game-info">Yükleniyor...</p>
+    <a class="btn" id="open-btn" href="#">Uygulamayı Aç</a>
+    <p class="hint">Uygulama otomatik açılmazsa butona dokun.</p>
+    <p id="status"></p>
+</div>
+
+<script>
+    const params = new URLSearchParams(window.location.search);
+    const gameName = params.get('gameName') || '';
+    const password = params.get('password') || '';
+
+    // Bilgi metnini güncelle
+    const info = document.getElementById('game-info');
+    if (gameName) {
+        info.textContent = '"' + gameName + '" oyununa katılmak için butona dokun.';
+    } else {
+        info.textContent = 'Geçersiz davet linki.';
+    }
+
+    // Deep link URL'sini oluştur
+    const deepLink = 'monopoly://join?gameName=' + encodeURIComponent(gameName)
+                   + '&password=' + encodeURIComponent(password);
+
+    const btn = document.getElementById('open-btn');
+    btn.href = deepLink;
+
+    // Sayfa açıldığında otomatik yönlendir
+    function tryOpen() {
+        if (!gameName) return;
+        window.location.href = deepLink;
+
+        // 2.5 saniye sonra hâlâ buradaysak uygulama yüklü değil demektir
+        setTimeout(function () {
+            document.getElementById('status').textContent =
+                'Uygulama bulunamadı. Lütfen önce uygulamayı yükleyin.';
+        }, 2500);
+    }
+
+    // Kısa bir gecikme sonrası otomatik aç (sayfanın render olmasını bekle)
+    setTimeout(tryOpen, 400);
+</script>
+</body>
+</html>
