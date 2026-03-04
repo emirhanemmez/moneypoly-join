@@ -95,6 +95,7 @@
 
     // Deep link URL'sini oluştur
     const deepLink = 'monopoly://join?gameName=' + encodeURIComponent(gameName)
+                   + '&initialValue=' + encodeURIComponent(initialValue)
                    + '&password=' + encodeURIComponent(password);
 
     const btn = document.getElementById('open-btn');
