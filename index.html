@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Monopoly Oyununa Katıl</title>
+    <title>MoneyPoly Oyununa Katıl</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -27,8 +27,18 @@
         }
 
         .logo {
-            font-size: 48px;
-            margin-bottom: 16px;
+            width: 96px;
+            height: 96px;
+            border-radius: 22px;
+            margin: 0 auto 20px;
+            display: block;
+            overflow: hidden;
+        }
+
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         h1 {
@@ -47,7 +57,7 @@
 
         .btn {
             display: inline-block;
-            background: #0066FF;
+            background: #00A651;
             color: white;
             font-size: 16px;
             font-weight: 600;
@@ -72,8 +82,10 @@
 </head>
 <body>
 <div class="card">
-    <div class="logo">🎩</div>
-    <h1>Monopoly Oyununa Katıl</h1>
+    <div class="logo">
+        <img src="Icon.svg" alt="MoneyPoly" />
+    </div>
+    <h1>MoneyPoly Oyununa Katıl</h1>
     <p id="game-info">Yükleniyor...</p>
     <a class="btn" id="open-btn" href="#">Uygulamayı Aç</a>
     <p class="hint">Uygulama otomatik açılmazsa butona dokun.</p>
@@ -94,7 +106,7 @@
     }
 
     // Deep link URL'sini oluştur
-    const deepLink = 'monopoly://join?gameName=' + encodeURIComponent(gameName)
+    const deepLink = 'moneypoly://join?gameName=' + encodeURIComponent(gameName)
                    + '&password=' + encodeURIComponent(password);
 
     const btn = document.getElementById('open-btn');
